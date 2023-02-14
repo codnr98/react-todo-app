@@ -18,14 +18,24 @@ const List = ({todoData, setTodoData}) => {
   return (
     <>
       {todoData.map((data) => (
-        <div key={data.id} completed={data.completed}>
-          <input
-            type='checkbox'
-            defaultChecked={data.completed}
-            onChange={() => handleCompleteChange(data.id)}
-          />
-          {data.title}
-          <button onClick={() => handleClick(data.id)}>x</button>
+        <div key={data.id}>
+          <div className='flex items-center justify-between w-full px-4 py-1 my-2 text-gray-500 bg-gray-100 border rounded'>
+            <div className='items-center'>
+              <input
+                className='mr-1'
+                type='checkbox'
+                defaultChecked={data.completed}
+                onChange={() => handleCompleteChange(data.id)}
+              />
+              <span className={data.completed ? "line-through" : "none"}>
+                {data.title}
+              </span>
+            </div>
+
+            <div>
+              <button onClick={() => handleClick(data.id)}>x</button>
+            </div>
+          </div>
         </div>
       ))}
     </>
