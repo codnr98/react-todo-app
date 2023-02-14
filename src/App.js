@@ -14,7 +14,7 @@ const App = () => {
     setTodoData(todoData.filter((data) => data.id !== id));
   };
 
-  const BtnStyle = styled.button`
+  const DeleteBtn = styled.button`
     border: none;
     padding: 5px 9px;
     color: #fff;
@@ -22,6 +22,7 @@ const App = () => {
     cursor: pointer;
     float: right;
   `;
+
   const GetStyle = styled.div`
     padding: 10px;
     border-bottom: 1px #ccc dotted;
@@ -38,7 +39,7 @@ const App = () => {
           <GetStyle key={data.id}>
             <input type='checkbox' defaultChecked={false} />
             {data.title}
-            <BtnStyle onClick={() => handleClick(data.id)}>x</BtnStyle>
+            <DeleteBtn onClick={() => handleClick(data.id)}>x</DeleteBtn>
           </GetStyle>
         ))}
       </div>
