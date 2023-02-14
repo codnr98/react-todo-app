@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Form from "./components/Form";
 import "./App.css";
-import List from "./components/List";
+import List from "./components/Lists";
 
 const App = () => {
   const DummyData = [
