@@ -14,7 +14,7 @@ const DeleteBtn = styled.button`
 const GetStyle = styled.div`
   padding: 10px;
   border-bottom: 1px #ccc dotted;
-  text-decoration: none;
+  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
 `;
 
 const TodoInput = styled.input`
@@ -53,6 +53,16 @@ const App = () => {
     console.log(todoData);
   };
 
+  const handleCompleteChange = (id) => {
+    let newTodoData = todoData.map((data) => {
+      if (data.id === id) {
+        data.completed = !data.completed;
+      }
+      return data;
+    });
+    setTodoData(newTodoData);
+  };
+
   return (
     <div className='container'>
       <div className='todoBlock'>
@@ -61,8 +71,12 @@ const App = () => {
         </div>
 
         {todoData.map((data) => (
-          <GetStyle key={data.id}>
-            <input type='checkbox' defaultChecked={false} />
+          <GetStyle key={data.id} completed={data.completed}>
+            <input
+              type='checkbox'
+              defaultChecked={data.completed}
+              onChange={() => handleCompleteChange(data.id)}
+            />
             {data.title}
             <DeleteBtn onClick={() => handleClick(data.id)}>x</DeleteBtn>
           </GetStyle>
