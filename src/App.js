@@ -2,6 +2,32 @@ import {useState} from "react";
 import styled from "styled-components";
 import "./App.css";
 
+const DeleteBtn = styled.button`
+  border: none;
+  padding: 5px 9px;
+  color: #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  float: right;
+`;
+
+const GetStyle = styled.div`
+  padding: 10px;
+  border-bottom: 1px #ccc dotted;
+  text-decoration: none;
+`;
+
+const TodoInput = styled.input`
+  flex: 10;
+  padding: 5px;
+`;
+
+const TodoBtn = styled.input`
+  flex: 1;
+  padding: 5px 9px;
+  cursor: pointer;
+`;
+
 const App = () => {
   const DummyData = [
     {id: "1", title: "공부하기", completed: true},
@@ -9,25 +35,23 @@ const App = () => {
   ];
 
   const [todoData, setTodoData] = useState(DummyData);
+  const [todoInputValue, setTodoInputValue] = useState("");
 
   const handleClick = (id) => {
     setTodoData(todoData.filter((data) => data.id !== id));
   };
 
-  const DeleteBtn = styled.button`
-    border: none;
-    padding: 5px 9px;
-    color: #fff;
-    border-radius: 50px;
-    cursor: pointer;
-    float: right;
-  `;
+  const handleChange = (e) => {
+    setTodoInputValue(e.target.value);
+  };
 
-  const GetStyle = styled.div`
-    padding: 10px;
-    border-bottom: 1px #ccc dotted;
-    text-decoration: none;
-  `;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newTodo = {id: Date.now(), title: todoInputValue, completed: false};
+    setTodoData([...todoData, newTodo]);
+    setTodoInputValue("");
+    console.log(todoData);
+  };
 
   return (
     <div className='container'>
@@ -35,6 +59,7 @@ const App = () => {
         <div className='title'>
           <h1>할 일 목록</h1>
         </div>
+
         {todoData.map((data) => (
           <GetStyle key={data.id}>
             <input type='checkbox' defaultChecked={false} />
@@ -42,6 +67,16 @@ const App = () => {
             <DeleteBtn onClick={() => handleClick(data.id)}>x</DeleteBtn>
           </GetStyle>
         ))}
+
+        <form style={{display: "flex"}} onSubmit={handleSubmit}>
+          <TodoInput
+            type='text'
+            name='value'
+            placeholder='해야 할 일을 입력하세요.'
+            value={todoInputValue}
+            onChange={handleChange}></TodoInput>
+          <TodoBtn type='submit' value='입력'></TodoBtn>
+        </form>
       </div>
     </div>
   );
