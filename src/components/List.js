@@ -1,6 +1,6 @@
 import React from "react";
 
-const List = ({todoData, setTodoData, data, provided}) => {
+const List = ({id, title, provided, completed, todoData, setTodoData}) => {
   const handleClick = (id) => {
     setTodoData(todoData.filter((data) => data.id !== id));
   };
@@ -14,9 +14,10 @@ const List = ({todoData, setTodoData, data, provided}) => {
     });
     setTodoData(newTodoData);
   };
+
   return (
     <div
-      key={data.id}
+      key={id}
       {...provided.draggableProps}
       ref={provided.innerRef}
       {...provided.dragHandleProps}>
@@ -25,16 +26,14 @@ const List = ({todoData, setTodoData, data, provided}) => {
           <input
             className='mr-1'
             type='checkbox'
-            defaultChecked={data.completed}
-            onChange={() => handleCompleteChange(data.id)}
+            defaultChecked={completed}
+            onChange={() => handleCompleteChange(id)}
           />
-          <span className={data.completed ? "line-through" : "none"}>
-            {data.title}
-          </span>
+          <span className={completed ? "line-through" : "none"}>{title}</span>
         </div>
 
         <div>
-          <button onClick={() => handleClick(data.id)}>x</button>
+          <button onClick={() => handleClick(id)}>x</button>
         </div>
       </div>
     </div>
