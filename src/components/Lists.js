@@ -11,7 +11,6 @@ const Lists = ({todoData, setTodoData}) => {
     const [reorderedItem] = newTodoData.splice(result.source.index, 1);
     newTodoData.splice(result.destination.index, 0, reorderedItem);
     setTodoData(newTodoData);
-    localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
 
   return (
